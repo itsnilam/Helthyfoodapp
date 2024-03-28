@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
-
+import Foodlist from "./Components/Foodlist";
+import Foodlinput from "./Components/Foodinput";
+import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 function App() {
+  let [foodlist, setFoodlist] = useState([]);
+
+  let [foodtext, setfoodtext] = useState();
+ 
+  const handalClick = (e) => {
+    setfoodtext(e.target.value);
+  };
+
+  // setFoodlist(foodtext);
+  const onkeyDoun = (e) => {
+    if (e.key === "Enter") {
+      let newFoodlist = e.target.value;
+      let newItem = [...foodlist, newFoodlist];
+      setFoodlist(newItem);
+     
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <center className="container container-sm container-md container-lg container-xl">
+      <center>
+        <h1>Helty Food App</h1>
+      </center>
+
+      <p>You added new Item {foodtext}</p>
+      <Foodlinput onkeyDoun={onkeyDoun} />
+      <Foodlist foodlist={foodlist} />
+    </center>
   );
 }
 
